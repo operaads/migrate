@@ -1,4 +1,4 @@
-module github.com/golang-migrate/migrate/v4
+module github.com/operaads/migrate/v4
 
 require (
 	github.com/dhui/dktest v0.3.16
