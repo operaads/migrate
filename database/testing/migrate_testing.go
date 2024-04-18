@@ -4,6 +4,7 @@
 package testing
 
 import (
+	"github.com/operaads/migrate/v4"
 	"testing"
 )
 

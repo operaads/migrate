@@ -69,13 +69,6 @@ __[CLI Documentation](cmd/migrate)__
 $ migrate -source file://path/to/migrations -database postgres://localhost:5432/database up 2
 ```
 
-### Docker usage
-
-```bash
-$ docker run -v {{ migration dir }}:/migrations --network host migrate/migrate
-    -path=/migrations/ -database postgres://localhost:5432/database up 2
-```
-
 ## Use in your Go project
 
 * API is stable and frozen for this release (v3 & v4).
