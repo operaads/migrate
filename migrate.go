@@ -11,9 +11,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/golang-migrate/migrate/v4/database"
-	iurl "github.com/golang-migrate/migrate/v4/internal/url"
-	"github.com/golang-migrate/migrate/v4/source"
+	"github.com/operaads/migrate/v4/database"
+	iurl "github.com/operaads/migrate/v4/internal/url"
+	"github.com/operaads/migrate/v4/source"
 )
 
 // DefaultPrefetchMigrations sets the number of migrations to pre-read
@@ -740,7 +740,8 @@ func (m *Migrate) runMigrations(ret <-chan interface{}) error {
 			}
 
 			if migr.Body != nil {
-				m.logVerbosePrintf("Read and execute %v\n", migr.LogString())
+				//m.logVerbosePrintf("Read and execute %v\n", migr.LogString())
+				fmt.Printf("Execute version: %v\n", migr.TargetVersion)
 				if err := m.databaseDrv.Run(migr.BufferedBody); err != nil {
 					return err
 				}
