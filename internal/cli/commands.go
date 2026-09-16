@@ -3,6 +3,7 @@ package cli
 import (
 	"errors"
 	"fmt"
+	"github.com/operaads/migrate/v4"
 	"os"
 	"path/filepath"
 	"strconv"

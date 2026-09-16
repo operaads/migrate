@@ -11,6 +11,7 @@ import (
 	"go.uber.org/atomic"
 
 	"github.com/hashicorp/go-multierror"
+	"github.com/operaads/migrate/v4"
 	"github.com/operaads/migrate/v4/database"
 	_ "modernc.org/sqlite"
 )

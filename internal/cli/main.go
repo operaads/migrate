@@ -3,15 +3,15 @@ package cli
 import (
 	"flag"
 	"fmt"
+	"github.com/operaads/migrate/v4"
+	"github.com/operaads/migrate/v4/database"
+	"github.com/operaads/migrate/v4/source"
 	"os"
 	"os/signal"
 	"strconv"
 	"strings"
 	"syscall"
 	"time"
-
-	"github.com/operaads/migrate/v4/database"
-	"github.com/operaads/migrate/v4/source"
 )
 
 const (

@@ -12,6 +12,7 @@ import (
 
 	"github.com/hashicorp/go-multierror"
 	_ "github.com/mattn/go-sqlite3"
+	"github.com/operaads/migrate/v4"
 	"github.com/operaads/migrate/v4/database"
 )
 
