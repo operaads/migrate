@@ -6,9 +6,9 @@ import (
 	"embed"
 	"log"
 
-	"github.com/golang-migrate/migrate/v4"
-	_ "github.com/golang-migrate/migrate/v4/database/postgres"
-	"github.com/golang-migrate/migrate/v4/source/iofs"
+	"github.com/operaads/migrate/v4"
+	_ "github.com/operaads/migrate/v4/database/mysql"
+	"github.com/operaads/migrate/v4/source/iofs"
 )
 
 //go:embed testdata/migrations/*.sql
@@ -19,7 +19,7 @@ func Example() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	m, err := migrate.NewWithSourceInstance("iofs", d, "postgres://postgres@localhost/postgres?sslmode=disable")
+	m, err := migrate.NewWithSourceInstance("iofs", d, "mysql://root@localhost/database")
 	if err != nil {
 		log.Fatal(err)
 	}
