@@ -7,7 +7,7 @@ import (
 	"log"
 
 	"github.com/golang-migrate/migrate/v4"
-	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/database/mysql"
 	"github.com/golang-migrate/migrate/v4/source/iofs"
 )
 
@@ -19,7 +19,7 @@ func Example() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	m, err := migrate.NewWithSourceInstance("iofs", d, "postgres://postgres@localhost/postgres?sslmode=disable")
+	m, err := migrate.NewWithSourceInstance("iofs", d, "mysql://root:password@localhost:3306/database")
 	if err != nil {
 		log.Fatal(err)
 	}

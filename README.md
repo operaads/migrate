@@ -23,27 +23,9 @@ Forked from [mattes/migrate](https://github.com/mattes/migrate)
 
 Database drivers run migrations. [Add a new database?](database/driver.go)
 
-* [PostgreSQL](database/postgres)
-* [PGX v4](database/pgx)
-* [PGX v5](database/pgx/v5)
-* [Redshift](database/redshift)
-* [Ql](database/ql)
-* [Cassandra / ScyllaDB](database/cassandra)
 * [SQLite](database/sqlite)
 * [SQLite3](database/sqlite3) ([todo #165](https://github.com/mattes/migrate/issues/165))
-* [SQLCipher](database/sqlcipher)
 * [MySQL / MariaDB](database/mysql)
-* [Neo4j](database/neo4j)
-* [MongoDB](database/mongodb)
-* [CrateDB](database/crate) ([todo #170](https://github.com/mattes/migrate/issues/170))
-* [Shell](database/shell) ([todo #171](https://github.com/mattes/migrate/issues/171))
-* [Google Cloud Spanner](database/spanner)
-* [CockroachDB](database/cockroachdb)
-* [YugabyteDB](database/yugabytedb)
-* [ClickHouse](database/clickhouse)
-* [Firebird](database/firebird)
-* [MS SQL Server](database/sqlserver)
-* [rqlite](database/rqlite)
 
 ### Database URLs
 
@@ -72,14 +54,6 @@ Source drivers read migrations from local or remote sources. [Add a new source?]
 
 * [Filesystem](source/file) - read from filesystem
 * [io/fs](source/iofs) - read from a Go [io/fs](https://pkg.go.dev/io/fs#FS)
-* [Go-Bindata](source/go_bindata) - read from embedded binary data ([jteeuwen/go-bindata](https://github.com/jteeuwen/go-bindata))
-* [pkger](source/pkger) - read from embedded binary data ([markbates/pkger](https://github.com/markbates/pkger))
-* [GitHub](source/github) - read from remote GitHub repositories
-* [GitHub Enterprise](source/github_ee) - read from remote GitHub Enterprise repositories
-* [Bitbucket](source/bitbucket) - read from remote Bitbucket repositories
-* [Gitlab](source/gitlab) - read from remote Gitlab repositories
-* [AWS S3](source/aws_s3) - read from Amazon Web Services S3
-* [Google Cloud Storage](source/google_cloud_storage) - read from Google Cloud Platform Storage
 
 ## CLI usage
 
@@ -92,14 +66,7 @@ Source drivers read migrations from local or remote sources. [Add a new source?]
 ### Basic usage
 
 ```bash
-$ migrate -source file://path/to/migrations -database postgres://localhost:5432/database up 2
-```
-
-### Docker usage
-
-```bash
-$ docker run -v {{ migration dir }}:/migrations --network host migrate/migrate
-    -path=/migrations/ -database postgres://localhost:5432/database up 2
+$ migrate -source file://path/to/migrations -database mysql://root:password@localhost:3306/database up 2
 ```
 
 ## Use in your Go project
@@ -116,14 +83,14 @@ __[Go Documentation](https://pkg.go.dev/github.com/golang-migrate/migrate/v4)__
 ```go
 import (
     "github.com/golang-migrate/migrate/v4"
-    _ "github.com/golang-migrate/migrate/v4/database/postgres"
-    _ "github.com/golang-migrate/migrate/v4/source/github"
+    _ "github.com/golang-migrate/migrate/v4/database/mysql"
+    _ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
 func main() {
     m, err := migrate.New(
-        "github://mattes:personal-access-token@mattes/migrate_test",
-        "postgres://localhost:5432/database?sslmode=enable")
+        "file:///migrations",
+        "mysql://root:password@localhost:3306/database")
     m.Steps(2)
 }
 ```
@@ -133,18 +100,18 @@ Want to use an existing database client?
 ```go
 import (
     "database/sql"
-    _ "github.com/lib/pq"
+    _ "github.com/go-sql-driver/mysql"
     "github.com/golang-migrate/migrate/v4"
-    "github.com/golang-migrate/migrate/v4/database/postgres"
+    "github.com/golang-migrate/migrate/v4/database/mysql"
     _ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
 func main() {
-    db, err := sql.Open("postgres", "postgres://localhost:5432/database?sslmode=enable")
-    driver, err := postgres.WithInstance(db, &postgres.Config{})
+    db, err := sql.Open("mysql", "root:password@localhost:3306/database")
+    driver, err := mysql.WithInstance(db, &mysql.Config{})
     m, err := migrate.NewWithDatabaseInstance(
         "file:///migrations",
-        "postgres", driver)
+        "mysql", driver)
     m.Up() // or m.Steps(2) if you want to explicitly set the number of migrations to run
 }
 ```
@@ -154,9 +121,6 @@ func main() {
 Go to [getting started](GETTING_STARTED.md)
 
 ## Tutorials
-
-* [CockroachDB](database/cockroachdb/TUTORIAL.md)
-* [PostgreSQL](database/postgres/TUTORIAL.md)
 
 (more tutorials to come)
 
